@@ -1,18 +1,27 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import axios from "axios";
 import logo from './logo.svg'
 import './App.css';
-import ShowInfo from "./ShowInfor"
-type TProduct={
-  id:number,
-  name:string
-}
+import ShowInfo from "./components/ShowInfor"
+import type {ProductType} from "./types/product"
 function App() {
-  const [count, setCount] = useState<number>(0);
-  const [products, setProducts] = useState<TProduct[]>([{id:1,name:"duy"}]);
-
+  const [info, setInfo] = useState<ProductType>({
+    title:"duy",
+    age:20
+  });
+  const [products,setProduct]  = useState<ProductType[]>([]);
+  useEffect(()=>{
+    const getProducts = async()=>{
+      const {data} = await axios.get("http://localhost:3000/posts");
+      setProduct(data);
+    }
+    getProducts();//json-server db.json
+  },[]);
+  
   return (
     <div className="App">
-   </ShowInfo name="duy">
+       <ShowInfo info={info}/>
+         {products.map(item=>{ return item.title})}
     </div>
   )
 }
