@@ -1,9 +1,11 @@
 import React from 'react'
 
-const ShowInfor = () => {
+const ShowInfo:React.FC<{name:string}> = ({name}) => {
   return (
-    <div>ShowInfor</div>
+   <div>ShowInfor</div>
+  
+   
   )
 }
 
-export default ShowInfor
+export default ShowInfo
