@@ -1,5 +1,18 @@
 {
-  "posts": [],
+  "products": [
+    {
+      "id": 3,
+      "title": "products c"
+    },
+    {
+      "id": 4,
+      "title": "products d"
+    },
+    {
+      "id": 5,
+      "title": "products e"
+    }
+  ],
   "comments": [],
   "profile": {
     "name": "typicode"

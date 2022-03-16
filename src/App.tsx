@@ -4,6 +4,7 @@ import logo from './logo.svg'
 import './App.css';
 import ShowInfo from "./components/ShowInfor"
 import type {ProductType} from "./types/product"
+import { list, remove } from './api/products';
 function App() {
   const [info, setInfo] = useState<ProductType>({
     id:1,
@@ -13,14 +14,14 @@ function App() {
   const [products,setProduct]  = useState<ProductType[]>([]);
   useEffect(()=>{
     const getProducts = async()=>{
-      const {data} = await axios.get("http://localhost:3000/posts");
+      const {data} = await list();
 
       setProduct(data);
     }
     getProducts();//json-server db.json
   },[]);
   const removeItem =async (id:number)=> {
-  const {data}= await axios.delete("http://localhost:3000/posts/"+id);
+  const {data} =await remove(id);
  if(data){
     setProduct(products.filter(item=>item.id!==id));
  }
