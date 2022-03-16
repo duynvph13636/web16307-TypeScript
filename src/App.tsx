@@ -5,6 +5,13 @@ import './App.css';
 import ShowInfo from "./components/ShowInfor"
 import type {ProductType} from "./types/product"
 import { list, remove } from './api/products';
+import { Navigate, NavLink, Route, Routes } from 'react-router-dom';
+import WebsiteLayout from './page/layouts/WebsiteLayout';
+import Hom from './page/Hom';
+import Products from './page/Products';
+import AdminLayout from './page/layouts/AdminLayout';
+import Dashboard from './page/Dashboard';
+import ManagerProduct from './page/ManagerProduct';
 function App() {
   const [info, setInfo] = useState<ProductType>({
     id:1,
@@ -25,21 +32,17 @@ function App() {
  if(data){
     setProduct(products.filter(item=>item.id!==id));
  }
-
-  
-    
   }
   return (
     <div className="App">
        <ShowInfo info={info}/>
-       <table>
+       {/* <table>
          <thead>
            <th>stt</th>
            <th>name</th>
            <th>status</th>
          </thead>
          <tbody> 
-           
             {products.map((item,index)=>{
                return <tr>
                           <td>{index + 1}</td>
@@ -47,10 +50,28 @@ function App() {
                           <td><button onClick={()=>removeItem(item.id)}>delete</button></td>
                        </tr>
             })}
-         
          </tbody>
-       </table>
-       
+       </table> */}
+       <header>
+         <ul>
+           <li><NavLink to="/">Hom page</NavLink></li>
+           <li><NavLink to="/product">products page</NavLink></li>
+           <li><NavLink to="/admin/dashboard">Admin dashboard</NavLink></li>
+         </ul>
+       </header>
+       <Routes>
+        {/* <Route path='/' element={<h1>hom page</h1>}/>
+        <Route path='product' element={<h1>product page</h1>}/> */}
+        <Route path='/' element={<WebsiteLayout/>}>
+              <Route index element={<Hom/>}/>
+              <Route path='product' element={<Products/>}/>
+        </Route>
+        <Route path='admin' element={<AdminLayout/>}>
+              <Route index element={<Navigate to="dashboard"/>}/>
+              <Route path='dashboard' element={<Dashboard/>}/>
+              <Route path='product' element={<ManagerProduct/>}/>
+        </Route>
+       </Routes>
     </div>
   )
 }
