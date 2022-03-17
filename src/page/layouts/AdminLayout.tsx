@@ -10,7 +10,7 @@ const AdminLayout = (props: Props) => {
             header admin
         </header>
         <aside>
-            menu admin
+            menu admin duy vlog
         </aside>
         <main>
             <Outlet/>
