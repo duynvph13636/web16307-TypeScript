@@ -5,30 +5,30 @@ type ManagerProductProps = {
 };
 
 const ManagerProduct = (props: ManagerProductProps) => {
+  setTimeout(() => {
+    console.log(props);
+  }, 1000);
   return (
     <div>
-      <table>
-        <thead>
-          <tr>
-            <th>stt</th>
-            <th>name</th>
-            <th>status</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {props.data &&
-            props.data.map((item, index) => {
-              return (
-                <tr key={index}>
-                  <td>{index + 1}</td>
-                  <td>{item.title}</td>
-                  {/* <td><button onClick={()=>removeItem(item.id)}>delete</button></td> */}
-                </tr>
-              );
+      <table className="table table-striped">
+         <thead>
+           <tr>
+             <th scope="col">STT</th>
+           <th scope="col">Name</th>
+           <th scope="col">Status</th>
+           </tr>
+           
+         </thead>
+         <tbody> 
+            {props.data.map((item,index)=>{
+               return <tr key={index}>
+                          <th>{index + 1}</th>
+                          <td>{item.title}</td>
+                          <td><button className="btn btn-danger">delete</button></td>
+                       </tr>
             })}
-        </tbody>
-      </table>
+         </tbody>
+       </table>
     </div>
   );
 };
