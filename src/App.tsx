@@ -1,42 +1,52 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from "react";
 import axios from "axios";
-import logo from './logo.svg'
-import './App.css';
-import ShowInfo from "./components/ShowInfor"
-import type {ProductType} from "./types/product"
-import { list, remove } from './api/products';
-import { Navigate, NavLink, Route, Routes } from 'react-router-dom';
-import WebsiteLayout from './page/layouts/WebsiteLayout';
-import Hom from './page/Hom';
-import Products from './page/Products';
-import AdminLayout from './page/layouts/AdminLayout';
-import Dashboard from './page/Dashboard';
-import ManagerProduct from './page/ManagerProduct';
+import logo from "./logo.svg";
+import "./App.css";
+import ShowInfo from "./components/ShowInfor";
+import type { ProductType } from "./types/product";
+import { add, list, remove } from "./api/products";
+import { Navigate, NavLink, Route, Routes } from "react-router-dom";
+import WebsiteLayout from "./page/layouts/WebsiteLayout";
+import Hom from "./page/Hom";
+import Products from "./page/Products";
+import AdminLayout from "./page/layouts/AdminLayout";
+import Dashboard from "./page/Dashboard";
+import ManagerProduct from "./page/ManagerProduct";
+import ProductAdd from "./page/ProductAdd";
 function App() {
   const [info, setInfo] = useState<ProductType>({
-    id:1,
-    title:"duy",
-    age:20
+    id: 1,
+    name: "duy",
+    age: 20,
   });
-  const [products,setProduct]  = useState<ProductType[]>([]);
-  useEffect(()=>{
-    const getProducts = async()=>{
-      const {data} = await list();
+  const [products, setProduct] = useState<ProductType[]>([]);
+
+  useEffect(() => {
+    const getProducts = async () => {
+      const { data } = await list();
 
       setProduct(data);
+    };
+    getProducts(); //json-server db.json
+  }, []);
+
+  const removeItem = async (id: number) => {
+    const { data } = await remove(id);
+    if (data) {
+      setProduct(products.filter((item) => item.id !== id));
     }
-    getProducts();//json-server db.json
-  },[]);
-  const removeItem =async (id:number)=> {
-  const {data} =await remove(id);
- if(data){
-    setProduct(products.filter(item=>item.id!==id));
- }
-  }
+  };
+
+  const onHandleAdd = async (product: ProductType) => {
+    //call api
+    const { data } = await add(product);
+    console.log(data);
+    setProduct([...products, data]);
+  };
   return (
     <div className="App">
-       <ShowInfo info={info}/>
-       {/* <table>
+      <ShowInfo info={info} />
+      {/* <table>
          <thead>
            <th>stt</th>
            <th>name</th>
@@ -52,28 +62,38 @@ function App() {
             })}
          </tbody>
        </table> */}
-       <header>
-         <ul>
-           <li><NavLink to="/">Hom page</NavLink></li>
-           <li><NavLink to="/product">products page</NavLink></li>
-           <li><NavLink to="/admin/dashboard">Admin dashboard</NavLink></li>
-         </ul>
-       </header>
-       <Routes>
+      <header>
+        <ul>
+          <li>
+            <NavLink to="/">Hom page</NavLink>
+          </li>
+          <li>
+            <NavLink to="/product">products page</NavLink>
+          </li>
+          <li>
+            <NavLink to="/admin/dashboard">Admin dashboard</NavLink>
+          </li>
+        </ul>
+      </header>
+      <Routes>
         {/* <Route path='/' element={<h1>hom page</h1>}/>
         <Route path='product' element={<h1>product page</h1>}/> */}
-        <Route path='/' element={<WebsiteLayout/>}>
-              <Route index element={<Hom/>}/>
-              <Route path='product' element={<Products/>}/>
+        <Route path="/" element={<WebsiteLayout />}>
+          <Route index element={<Hom />} />
+          <Route path="product" element={<Products />} />
         </Route>
-        <Route path='admin' element={<AdminLayout/>}>
-              <Route index element={<Navigate to="dashboard"/>}/>
-              <Route path='dashboard' element={<Dashboard/>}/>
-              <Route path='product' element={<ManagerProduct/>}/>
+        <Route path="admin" element={<AdminLayout />}>
+          <Route index element={<Navigate to="dashboard" />} />
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="product" element={<ManagerProduct data={products} />} />
+          <Route
+            path="product/add"
+            element={<ProductAdd onAdd={onHandleAdd} />}
+          />
         </Route>
-       </Routes>
+      </Routes>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
