@@ -1,7 +1,7 @@
 import React from "react";
 import { ProductType } from "../types/product";
 type ManagerProductProps = {
-  data: ProductType;
+  data: ProductType[];
 };
 
 const ManagerProduct = (props: ManagerProductProps) => {

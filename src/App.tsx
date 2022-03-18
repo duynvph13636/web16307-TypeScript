@@ -14,11 +14,11 @@ import AdminLayout from './page/layouts/AdminLayout';
 import Dashboard from './page/Dashboard';
 import ManagerProduct from './page/ManagerProduct';
 function App() {
-  const [info, setInfo] = useState<ProductType>({
-    id:1,
-    title:"duy",
-    age:20
-  });
+  // const [info, setInfo] = useState<ProductType>({
+  //   id:1,
+  //   title:"duy",
+  //   age:20
+  // });
   const [products,setProduct]  = useState<ProductType[]>([]);
   useEffect(()=>{
     const getProducts = async()=>{
