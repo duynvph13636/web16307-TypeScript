@@ -1,11 +1,36 @@
-import React from 'react'
+import React from "react";
+import { ProductType } from "../types/product";
+type ManagerProductProps = {
+  data: ProductType;
+};
 
-type Props = {}
-
-const ManagerProduct = (props: Props) => {
+const ManagerProduct = (props: ManagerProductProps) => {
   return (
-    <div>ManagerProduct</div>
-  )
-}
+    <div>
+      <table>
+        <thead>
+          <tr>
+            <th>stt</th>
+            <th>name</th>
+            <th>status</th>
+          </tr>
+        </thead>
 
-export default ManagerProduct
+        <tbody>
+          {props.data &&
+            props.data.map((item, index) => {
+              return (
+                <tr key={index}>
+                  <td>{index + 1}</td>
+                  <td>{item.title}</td>
+                  {/* <td><button onClick={()=>removeItem(item.id)}>delete</button></td> */}
+                </tr>
+              );
+            })}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+export default ManagerProduct;

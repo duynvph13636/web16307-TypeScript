@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import axios from "axios";
 import logo from './logo.svg'
 import './App.css';
+import "bootstrap/dist/css/bootstrap.min.css";
 import ShowInfo from "./components/ShowInfor"
 import type {ProductType} from "./types/product"
 import { list, remove } from './api/products';
@@ -35,7 +36,7 @@ function App() {
   }
   return (
     <div className="App">
-       <ShowInfo info={info}/>
+       {/* <ShowInfo info={info}/> */}
        {/* <table>
          <thead>
            <th>stt</th>
@@ -52,13 +53,13 @@ function App() {
             })}
          </tbody>
        </table> */}
-       <header>
+       {/* <header>
          <ul>
            <li><NavLink to="/">Hom page</NavLink></li>
            <li><NavLink to="/product">products page</NavLink></li>
            <li><NavLink to="/admin/dashboard">Admin dashboard</NavLink></li>
          </ul>
-       </header>
+       </header> */}
        <Routes>
         {/* <Route path='/' element={<h1>hom page</h1>}/>
         <Route path='product' element={<h1>product page</h1>}/> */}
@@ -69,7 +70,7 @@ function App() {
         <Route path='admin' element={<AdminLayout/>}>
               <Route index element={<Navigate to="dashboard"/>}/>
               <Route path='dashboard' element={<Dashboard/>}/>
-              <Route path='product' element={<ManagerProduct/>}/>
+              <Route path='product' element={<ManagerProduct data={products}/>}/>
         </Route>
        </Routes>
     </div>
