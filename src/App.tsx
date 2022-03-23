@@ -13,6 +13,7 @@ import AdminLayout from "./page/layouts/AdminLayout";
 import Dashboard from "./page/Dashboard";
 import ManagerProduct from "./page/ManagerProduct";
 import ProductAdd from "./page/ProductAdd";
+import ProductUpdate from "./page/ProductUpdate";
 function App() {
   const [info, setInfo] = useState<ProductType>({
     id: 1,
@@ -62,7 +63,7 @@ function App() {
             })}
          </tbody>
        </table> */}
-      <header>
+      {/* <header>
         <ul>
           <li>
             <NavLink to="/">Hom page</NavLink>
@@ -74,7 +75,7 @@ function App() {
             <NavLink to="/admin/dashboard">Admin dashboard</NavLink>
           </li>
         </ul>
-      </header>
+      </header> */}
       <Routes>
         {/* <Route path='/' element={<h1>hom page</h1>}/>
         <Route path='product' element={<h1>product page</h1>}/> */}
@@ -89,6 +90,10 @@ function App() {
           <Route
             path="product/add"
             element={<ProductAdd onAdd={onHandleAdd} />}
+          />
+          <Route
+            path="product/:id/edit"
+            element={<ProductUpdate />}
           />
         </Route>
       </Routes>
