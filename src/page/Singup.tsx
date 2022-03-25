@@ -22,6 +22,7 @@ const Singup = (props: SingupProps) => {
     const onHandleSignup = async (signup: UserType) => {
       const { data } = await Add(signup);
       console.log(data);
+      // localStorage.setItem("users",JSON.stringify(data));
     };
     onHandleSignup(data);
   };
