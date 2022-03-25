@@ -14,6 +14,9 @@ import Dashboard from "./page/Dashboard";
 import ManagerProduct from "./page/ManagerProduct";
 import ProductAdd from "./page/ProductAdd";
 import ProductUpdate from "./page/ProductUpdate";
+import Singup from "./page/Singup";
+import { UserType } from "./types/user";
+import { Add } from "./api/user";
 function App() {
   const [info, setInfo] = useState<ProductType>({
     id: 1,
@@ -49,6 +52,13 @@ function App() {
     console.log(product);
     setProduct(products.map((item) => (item.id == data.id ? data : item)));
   };
+  const onHandleSignup = async (signup:UserType)=>{
+    const {data}= await Add(signup);
+
+console.log(signup);
+
+
+  }
   return (
     <div className="App">
       <ShowInfo info={info} />
@@ -87,6 +97,8 @@ function App() {
         <Route path="/" element={<WebsiteLayout />}>
           <Route index element={<Hom />} />
           <Route path="product" element={<Products />} />
+          <Route path="signup" element={<Singup />} />
+
         </Route>
         <Route path="admin" element={<AdminLayout />}>
           <Route index element={<Navigate to="dashboard" />} />

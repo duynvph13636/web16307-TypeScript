@@ -46,8 +46,25 @@
       "id": 14
     }
   ],
-  "comments": [],
-  "profile": {
-    "name": "typicode"
-  }
+  "users": [
+    {
+      "name": "duynvph13636",
+      "email": "nvduy123@gmail.com",
+      "phone": "0852767256",
+      "id": 1
+    },
+    {
+      "name": "duynvph2002",
+      "email": "nvduy123@gmail.com",
+      "phone": "0852767256",
+      "id": 2
+    },
+    {
+      "name": "Nguyen_Duy",
+      "email": "nvduy123@gmail.com",
+      "phone": "0852767256",
+      "password": "123456",
+      "id": 3
+    }
+  ]
 }
