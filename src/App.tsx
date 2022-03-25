@@ -4,7 +4,7 @@ import logo from "./logo.svg";
 import "./App.css";
 import ShowInfo from "./components/ShowInfor";
 import type { ProductType } from "./types/product";
-import { add, list, remove } from "./api/products";
+import { add, list, remove, update } from "./api/products";
 import { Navigate, NavLink, Route, Routes } from "react-router-dom";
 import WebsiteLayout from "./page/layouts/WebsiteLayout";
 import Hom from "./page/Hom";
@@ -18,7 +18,7 @@ function App() {
   const [info, setInfo] = useState<ProductType>({
     id: 1,
     name: "duy",
-    age: 20,
+    price: 20,
   });
   const [products, setProduct] = useState<ProductType[]>([]);
 
@@ -43,6 +43,11 @@ function App() {
     const { data } = await add(product);
     console.log(data);
     setProduct([...products, data]);
+  };
+  const onHandleUpdate = async (product: ProductType) => {
+    const { data } = await update(product);
+    console.log(product);
+    setProduct(products.map((item) => (item.id == data.id ? data : item)));
   };
   return (
     <div className="App">
@@ -93,7 +98,7 @@ function App() {
           />
           <Route
             path="product/:id/edit"
-            element={<ProductUpdate />}
+            element={<ProductUpdate onUpdate={onHandleUpdate} />}
           />
         </Route>
       </Routes>
