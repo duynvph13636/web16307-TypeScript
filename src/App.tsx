@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 import logo from "./logo.svg";
 import "./App.css";
@@ -17,6 +18,7 @@ import ProductUpdate from "./page/ProductUpdate";
 import Singup from "./page/Singup";
 import { UserType } from "./types/user";
 import { Add } from "./api/user";
+import Singin from "./page/Singin";
 function App() {
   const [info, setInfo] = useState<ProductType>({
     id: 1,
@@ -62,35 +64,7 @@ console.log(signup);
   return (
     <div className="App">
       <ShowInfo info={info} />
-      {/* <table>
-         <thead>
-           <th>stt</th>
-           <th>name</th>
-           <th>status</th>
-         </thead>
-         <tbody> 
-            {products.map((item,index)=>{
-               return <tr>
-                          <td>{index + 1}</td>
-                          <td>{item.title}</td>
-                          <td><button onClick={()=>removeItem(item.id)}>delete</button></td>
-                       </tr>
-            })}
-         </tbody>
-       </table> */}
-      {/* <header>
-        <ul>
-          <li>
-            <NavLink to="/">Hom page</NavLink>
-          </li>
-          <li>
-            <NavLink to="/product">products page</NavLink>
-          </li>
-          <li>
-            <NavLink to="/admin/dashboard">Admin dashboard</NavLink>
-          </li>
-        </ul>
-      </header> */}
+     
       <Routes>
         {/* <Route path='/' element={<h1>hom page</h1>}/>
         <Route path='product' element={<h1>product page</h1>}/> */}
@@ -98,6 +72,7 @@ console.log(signup);
           <Route index element={<Hom />} />
           <Route path="product" element={<Products />} />
           <Route path="signup" element={<Singup />} />
+          <Route path="signin" element={<Singin />} />
 
         </Route>
         <Route path="admin" element={<AdminLayout />}>
