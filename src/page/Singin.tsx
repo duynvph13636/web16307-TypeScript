@@ -1,6 +1,9 @@
 import React from "react";
 import { UserType } from "../types/user";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { useNavigate, useParams } from "react-router-dom";
+import { signin } from "../api/user";
+
 
 type Props = {};
 type FormInput = {
@@ -14,12 +17,12 @@ const Singin = (props: Props) => {
     watch,
     formState: { errors },
   } = useForm<FormInput>();
-  const onSubmit: SubmitHandler<FormInput> = (data) => {
-    try {
-      
-    } catch (error) {
-      
-    }
+  const navigate = useNavigate();
+  const onSubmit: SubmitHandler<FormInput> = async(data) => {
+
+  await signin(data);
+  localStorage.setItem("users",JSON.stringify(data));
+  navigate("/");
     console.log(data);
   };
 
