@@ -54,17 +54,15 @@ function App() {
     console.log(product);
     setProduct(products.map((item) => (item.id == data.id ? data : item)));
   };
-  const onHandleSignup = async (signup:UserType)=>{
-    const {data}= await Add(signup);
+  const onHandleSignup = async (signup: UserType) => {
+    const { data } = await Add(signup);
 
-console.log(signup);
-
-
-  }
+    console.log(signup);
+  };
   return (
     <div className="App">
       <ShowInfo info={info} />
-     
+
       <Routes>
         {/* <Route path='/' element={<h1>hom page</h1>}/>
         <Route path='product' element={<h1>product page</h1>}/> */}
@@ -73,7 +71,6 @@ console.log(signup);
           <Route path="product" element={<Products />} />
           <Route path="signup" element={<Singup />} />
           <Route path="signin" element={<Singin />} />
-
         </Route>
         <Route path="admin" element={<AdminLayout />}>
           <Route index element={<Navigate to="dashboard" />} />
