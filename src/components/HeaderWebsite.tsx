@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 type Props = {};
 
@@ -60,12 +61,12 @@ const HeaderWebsite = (props: Props) => {
                 >
                   Đăng nhập
                 </a>
-                <a
-                  href="#"
+                <Link
+                  to={"admin"}
                   className="p-2 lg:px-4 md:mx-2 text-indigo-600 text-center border border-transparent rounded hover:bg-indigo-100 hover:text-indigo-700 transition-colors duration-300"
                 >
                   Admin
-                </a>
+                </Link>
               </div>
             </div>
           </nav>

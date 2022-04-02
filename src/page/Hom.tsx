@@ -1,12 +1,9 @@
-import React from 'react'
+import React from "react";
 
-type Props = {}
+type Props = {};
 
 const Hom = (props: Props) => {
-  
-  return (
-    <div>Hom</div>
-  )
-}
+  return <div>Hom</div>;
+};
 
-export default Hom
+export default Hom;
