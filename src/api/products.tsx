@@ -22,3 +22,7 @@ export const read = (id:number)=>{
     const url =`/products/${id}`;
     return instance.get(url);
 }
+export const listProductDetail = (_id:number)=>{
+    const url =`/products/${_id}`;
+    return instance.get(url);
+}

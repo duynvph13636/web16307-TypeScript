@@ -19,6 +19,7 @@ import { UserType } from "./types/user";
 import { Add } from "./api/user";
 import Singin from "./page/Singin";
 import ListProduct from "./page/admin/ListProduct";
+import ProductDetail from "./page/ProductDetail";
 function App() {
   const [products, setProduct] = useState<ProductType[]>([]);
 
@@ -66,6 +67,7 @@ function App() {
           <Route path="product" element={<Products />} />
           <Route path="signup" element={<Singup />} />
           <Route path="signin" element={<Singin />} />
+          <Route path="product/:id/detail" element={<ProductDetail />} />
         </Route>
         <Route path="admin" element={<AdminLayout />}>
           <Route index element={<Dashboard />} />
