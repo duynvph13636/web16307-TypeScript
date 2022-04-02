@@ -31,17 +31,38 @@ const ProductUpdate = (props: ProductUpdateProps) => {
     };
     getProduct();
   }, []);
- const onSubmit: SubmitHandler<FormInput> = data => {
-    console.log(data);
-    props.onUpdate(data);
+ const onSubmit: SubmitHandler<FormInput> = (data:any) => {
+   console.log(data);
+props.onUpdate(data);
     navigate("/admin/product");
   };
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <input type="text" {...register("name")} />
-        <input type="number" {...register("price")} />
-        <button>Update</button>
+        <div className="bg-grey-lighter min-h-screen flex flex-col">
+          <div className="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
+            <div className="bg-white px-6 py-8 rounded shadow-md text-black w-full">
+              <h1 className="mb-8 text-3xl text-center">Edit Product</h1>
+              <input
+                type="text"
+                className="block border border-grey-light w-full p-3 rounded mb-4"
+                placeholder="name"
+                {...register("name")}
+              />
+              <input
+                type="number"
+                className="block border border-grey-light w-full p-3 rounded mb-4"
+                placeholder="price"
+                {...register("price")}
+              />
+              <input type="file" {...register("image")} />
+              
+              <button className="w-full text-center py-3 rounded bg-cyan-500 text-black hover:bg-green focus:outline-none my-1">
+                Edit
+              </button>
+            </div>
+          </div>
+        </div>
       </form>
     </div>
   );

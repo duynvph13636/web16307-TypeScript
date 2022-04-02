@@ -4,6 +4,7 @@ import { ProductType } from "../../types/product";
 
 type ListProductProps = {
   data:ProductType[];
+  onRemove:(id:Number)=>void
 };
 
 const ListProduct = (props: ListProductProps) => {
@@ -93,13 +94,13 @@ const ListProduct = (props: ListProductProps) => {
                               className="btne text-black inline-block py-3 px-5 rounded"
                             >
                              
-                              <a href="/admin/product/${post.id}/edit">Edit</a>
+                              <Link to={`${item._id}/edit`}>Edit</Link>
                             </button>
                           </span>
                           <span className="px-6 py-4 text-right text-sm font-medium">
                             <button
-                              data-id="${post.id}"
                               className="btn bg-red-500 text-white inline-block py-3 px-5 rounded"
+                              onClick={()=>{props.onRemove(item._id)}}
                             >
                               <a href="">delete</a>
                             </button>

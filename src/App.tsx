@@ -34,7 +34,7 @@ function App() {
   const removeItem = async (id: number) => {
     const { data } = await remove(id);
     if (data) {
-      setProduct(products.filter((item) => item.id !== id));
+      setProduct(products.filter((item) => item._id !== id));
     }
   };
 
@@ -47,7 +47,7 @@ function App() {
   const onHandleUpdate = async (product: ProductType) => {
     const { data } = await update(product);
     console.log(product);
-    setProduct(products.map((item) => (item.id == data.id ? data : item)));
+    setProduct(products.map((item) => (item._id == data.id ? data : item)));
   };
   const onHandleSignup = async (signup: UserType) => {
     const { data } = await Add(signup);
@@ -70,7 +70,7 @@ function App() {
         <Route path="admin" element={<AdminLayout />}>
           <Route index element={<Dashboard />} />
           {/* <Route path="dashboard" element={<Dashboard />} /> */}
-          <Route path="product" element={<ListProduct data={products} />} />
+          <Route path="product" element={<ListProduct data={products} onRemove={removeItem} />} />
           <Route
             path="product/add"
             element={<ProductAdd onAdd={onHandleAdd} />}
