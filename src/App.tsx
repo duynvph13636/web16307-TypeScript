@@ -96,7 +96,7 @@ const [categories,setCategory]=useState<CategoryType[]>([]);
           <Route path="product" element={<ListProduct data={products} onRemove={removeItem} />} />
           <Route
             path="product/add"
-            element={<ProductAdd onAdd={onHandleAdd} />}
+            element={<ProductAdd onAdd={onHandleAdd} category={categories}/>}
           />
           <Route
             path="category/add"
