@@ -86,12 +86,12 @@ const HeaderAdmin = (props: Props) => {
                 >
                   Product
                 </Link>
-                <a
-                  href="#"
+                <Link
+                  to={"category"}
                   className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                 >
                   category
-                </a>
+                </Link>
                 <a
                   href="#"
                   className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"

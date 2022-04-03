@@ -14,7 +14,7 @@ type Props = {};
 
 const AdminLayout = (props: Props) => {
   return (
-    <div>
+    <div className="min-h-full">
       <HeaderAdmin />
 
       <Outlet />

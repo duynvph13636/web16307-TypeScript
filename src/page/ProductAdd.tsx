@@ -19,30 +19,22 @@ const ProductAdd = (props: ProductAddProps) => {
     formState: { errors },
   } = useForm<FormValues>();
   const navigate = useNavigate();
-   const CLOUDINARY_PRESET = "ck8bz8wq";
+  
+  const onsubmit: SubmitHandler<FormValues> =async (data) => {
+    const CLOUDINARY_PRESET = "ck8bz8wq";
     const CLOUDINARY_API_URL = "https://api.cloudinary.com/v1_1/fpolyduy/image/upload";
-
-  const uploadImg = async (e) => {
-  //  image.src = URL.createObjectURL(e.target.files[0]);
-    const files = e.target.file;
-    const formData = new FormData();
-    formData.append("file", files[0]);
-    formData.append("upload_preset", "ck8bz8wq");
-    const {data} = await axios.post("https://api.cloudinary.com/v1_1/fpolyduy/image/upload",formData,{
+     if(image){
+        const formData = new FormData();
+    formData.append("file", image);
+    formData.append("upload_preset",CLOUDINARY_PRESET);
+    const images = await axios.post(CLOUDINARY_API_URL,formData,{
        headers: {
         "Content-Type": "application/form-data",
     },
     });
-    // const res = await fetch(
-    //   "https://api.cloudinary.com/v1_1/fpolyduy/image/upload" ,
-    //   { method: "post", body: "data" }
-    // );
-    // const file = await data.json();
-    // setImage(file.url);
-    console.log(data);
-    
-  };
-  const onsubmit: SubmitHandler<FormValues> = (data) => {
+    data.image=images.data.url;
+     }
+   
     console.log(data);
     props.onAdd(data);
     // navigate("/admin/product");
@@ -50,13 +42,6 @@ const ProductAdd = (props: ProductAddProps) => {
   
   return (
     <div>
-      {/* <form onSubmit={handleSubmit(onSubmit)}>
-    <input type="text"{...register("name",{required:true,minLength:5})} />
-    {errors.name&&errors.name.type==="required"&&<span>cần nhập dữ liệu</span>}
-    {errors.name&&errors.name.type==="minLength"&&<span>ít nhất 5 kí tự</span>}
-    <input type="number"{...register("price")} />
-    <button>Add</button>
-</form> */}
       <form onSubmit={handleSubmit(onsubmit)}>
         <div className="bg-grey-lighter min-h-screen flex flex-col">
           <div className="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
@@ -74,8 +59,8 @@ const ProductAdd = (props: ProductAddProps) => {
                 placeholder="price"
                 {...register("price")}
               />
-              <input type="file" {...register("image")} onChange={uploadImg} />
-              <img src={image} style={{ width: "300px" }} />
+              <input type="file" {...register("image")} onChange={(e)=>{setImage(e.target.files[0])}}/>
+              <img src={image} style={{ width: "300px" }}  />
               <button className="w-full text-center py-3 rounded bg-cyan-500 text-black hover:bg-green focus:outline-none my-1">
                 ADD
               </button>

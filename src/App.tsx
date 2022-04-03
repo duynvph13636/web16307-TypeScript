@@ -20,15 +20,25 @@ import { Add } from "./api/user";
 import Singin from "./page/Singin";
 import ListProduct from "./page/admin/ListProduct";
 import ProductDetail from "./page/ProductDetail";
+import CategoryAdd from "./page/admin/CategoryAdd";
+import { CategoryType } from "./types/category";
+import { addCate, listCate, removeCate } from "./api/category";
+import ListCategory from "./page/admin/ListCategory";
 function App() {
   const [products, setProduct] = useState<ProductType[]>([]);
-
+const [categories,setCategory]=useState<CategoryType[]>([]);
   useEffect(() => {
     const getProducts = async () => {
       const { data } = await list();
-
+    
       setProduct(data);
     };
+    const getCategory = async () => {
+      const { data } = await listCate();
+    
+      setCategory(data);
+    };
+    getCategory();
     getProducts(); //json-server db.json
   }, []);
 
@@ -50,6 +60,17 @@ function App() {
     console.log(product);
     setProduct(products.map((item) => (item._id == data.id ? data : item)));
   };
+  const AddCate = async(category:CategoryType)=>{
+     const {data} =    await addCate(category);
+        setCategory([...categories,data]);
+        
+  }
+  const removeItemCate = async(id:number)=>{
+      const {data}= await removeCate(id);
+      if (data) {
+        setCategory(categories.filter((item) => item._id !== id));
+      }
+  }
   const onHandleSignup = async (signup: UserType) => {
     const { data } = await Add(signup);
 
@@ -76,6 +97,14 @@ function App() {
           <Route
             path="product/add"
             element={<ProductAdd onAdd={onHandleAdd} />}
+          />
+          <Route
+            path="category/add"
+            element={<CategoryAdd onCate={AddCate}/>}
+          />
+          <Route
+            path="category"
+            element={<ListCategory cate={categories} onRemovecate={removeItemCate}/>}
           />
           <Route
             path="product/:id/edit"
