@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { ProductType } from "../types/product";
 
-type Props = {};
+type Props = {
+  data :ProductType[]
+};
 
 const HeaderWebsite = (props: Props) => {
  const a = JSON.parse(localStorage.getItem("users"));

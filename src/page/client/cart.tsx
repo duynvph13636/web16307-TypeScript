@@ -4,12 +4,16 @@ import { ProductType } from '../../types/product'
 
 type CartProps = {
  carts:ProductType[]
+ onaddcart:(cartItem:ProductType)=>void
+ onremovecart:(cartItem:ProductType)=>void
+
 }
 
 const Cart = (props: CartProps) => {
 console.log(props);
 // const cartLoco =JSON.parse(localStorage.getItem("cartitem")) ;
-
+let tong=0;
+let thanhtien=0;
   return (
     <div>
        
@@ -63,11 +67,13 @@ console.log(props);
                   </tr>
                 </thead>
                 
-                <tbody className="bg-white divide-y divide-gray-200"><tr>
+                <tbody className="bg-white divide-y divide-gray-200">
+                    {props.carts.map(item=>{
+                        return   <tr>
                     <td className="px-6 py-4">
                       <div className="flex items-center">
                         <div className="flex-shrink-0 h-10 w-10">
-                          <img className="h-10 w-10 rounded-full" src="${post.image}" />
+                          <img className="h-10 w-10 rounded-full" src={item.image} />
                         </div>
                         <div className="ml-4">
                           <div className="text-sm font-medium text-gray-900">
@@ -78,30 +84,34 @@ console.log(props);
                       </div>
                     </td>
                     <td className="px-6 py-4">
-                      <div className="text-sm text-gray-900">  ${'{'}post.name{'}'} </div>
+                      <div className="text-sm text-gray-900"> {item.name} </div>
                     </td>
                     <td className="px-6 py-4">
-                      <div className="text-sm text-gray-900">  ${'{'}post.quantity{'}'} </div>
+                      <div className="text-sm text-gray-900"> {item.qty} </div>
                     </td>
                     <td className="px-6 py-4">
-                      <div className="text-sm text-gray-900">  ${'{'}post.price.toLocaleString("vi-VN", {'{'} style: "currency", currency: "VND" {'}'}){'}'} </div>
+                      <div className="text-sm text-gray-900"> {item.price} </div>
                     </td>
                     <td className="px-6 py-4">
                       <span className="px-6 py-4 text-right text-sm font-medium">
-                        <button data-id="${post.id}" className="btn bg-black text-white inline-block py-3 px-5 rounded btn-increase"> <a >+</a></button>
+                        <button onClick={()=>props.onaddcart(item)} className="btn bg-black text-white inline-block py-3 px-5 rounded btn-increase"> <a >+</a></button>
                       </span>
                       <span className="px-6 py-4 text-right text-sm font-medium">
-                        <button data-id="${post.id}" className="btn bg-black text-white inline-block py-3 px-5 rounded btn-decrease">-</button>
+                        <button onClick={()=>props.onremovecart(item)} className="btn bg-black text-white inline-block py-3 px-5 rounded btn-decrease">-</button>
                       </span>
                     </td>
                     <td className="px-6 py-4">
-                      <p hidden> ${'{'}tong=post.price * post.quantity{'}'}</p> 
-                      <div className="text-sm text-gray-900">  ${'{'}tong.toLocaleString("vi-VN", {'{'} style: "currency", currency: "VND" {'}'}){'}'}</div>
+                      <p hidden>{tong=item.price*item.qty}</p> 
+                      <div className="text-sm text-gray-900"> {tong.toLocaleString()} </div>
+                       <h1 hidden>{thanhtien+=tong}</h1>
                     </td>  
-                  </tr>{/* More people... */}
+                  </tr>
+                    })}
+                  {/* More people... */}
                 </tbody>
               </table>
-              <h1>Tổng tiền thanh toán:${'{'}thanhtien.toLocaleString("vi-VN", {'{'} style: "currency", currency: "VND" {'}'}){'}'}</h1>
+             
+              <h1>Tổng tiền thanh toán:{thanhtien.toLocaleString()}</h1>
             </div>
           </div>
         </div>

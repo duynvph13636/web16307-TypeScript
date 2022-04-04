@@ -88,7 +88,18 @@ function App() {
   console.log(cartItems);
   
   };
-
+const removeCart= (cartItem:ProductType)=>{
+  const exist = cartItems.find((item) => item._id=== cartItem._id);
+  if(exist?.qty===1){
+    setCartItems(cartItems.filter((item)=>item._id!==cartItem._id));
+  }else{
+    setCartItems(
+      cartItems.map((x) =>
+        x._id === cartItem._id ? { ...exist, qty: exist.qty - 1 } : x
+      )
+    );
+  }
+}
 
   return (
     <div className="App">
@@ -109,7 +120,7 @@ function App() {
           <Route path="signup" element={<Singup />} />
           <Route path="signin" element={<Singin />} />
           <Route path="product/:id/detail" element={<ProductDetail />} />
-          <Route path="cart" element={<Cart carts={cartItems}/>}  />
+          <Route path="cart" element={<Cart carts={cartItems} onaddcart={addtocart} onremovecart={removeCart}/>}  />
         </Route>
         <Route path="admin" element={<AdminLayout />}>
           <Route index element={<Dashboard />} />
