@@ -20,18 +20,14 @@ const Singin = (props: Props) => {
   const onSubmit: SubmitHandler<FormInput> = async (data) => {
     await signin(data);
     localStorage.setItem("users", JSON.stringify(data));
-    navigate("/");
+    setTimeout(() => {
+      navigate("/");
+    }, 2000);
+    
     console.log(data);
   };
 
   return (
-    // <div>
-    //   <form action="" onSubmit={handleSubmit(onSubmit)}>
-    //     <input type="text" placeholder="email" {...register("email")}/>
-    //     <input type="password" placeholder="password"{...register("password")} />
-    //     <button>Sign in</button>
-    //   </form>
-    // </div>
     <form action="" onSubmit={handleSubmit(onSubmit)}>
       <div className="bg-grey-lighter min-h-screen flex flex-col">
         <div className="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">

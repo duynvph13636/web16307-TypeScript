@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 type Props = {};
 
 const HeaderWebsite = (props: Props) => {
+ const a = JSON.parse(localStorage.getItem("users"));
+
+
   return (
     <div>
       <header>
@@ -25,48 +28,53 @@ const HeaderWebsite = (props: Props) => {
                 className="hidden md:flex flex-col md:flex-row md:ml-auto mt-3 md:mt-0"
                 id="navbar-collapse"
               >
-                <a
-                  href="#"
+                <Link
+                  to={"/"}
                   className="p-2 lg:px-4 md:mx-2 text-white rounded bg-indigo-600"
                 >
                   Trang chủ
-                </a>
-                <a
-                  href="#"
+                </Link>
+                <Link
+                  to={"cart"}
                   className="p-2 lg:px-4 md:mx-2 text-gray-600 rounded hover:bg-gray-200 hover:text-gray-700 transition-colors duration-300"
                 >
                   Giỏ hàng
-                </a>
+                </Link>
                 <a
                   href="#"
                   className="p-2 lg:px-4 md:mx-2 text-gray-600 rounded hover:bg-gray-200 hover:text-gray-700 transition-colors duration-300"
                 >
                   Sản phẩm
                 </a>
-                <a
-                  href="#"
-                  className="p-2 lg:px-4 md:mx-2 text-gray-600 rounded hover:bg-gray-200 hover:text-gray-700 transition-colors duration-300"
-                >
-                  Liên hệ
-                </a>
-                <a
-                  href="#"
-                  className="p-2 lg:px-4 md:mx-2 text-gray-600 rounded hover:bg-gray-200 hover:text-gray-700 transition-colors duration-300"
-                >
-                  Tin tức
-                </a>
-                <a
-                  href="#"
+
+                <Link
+                  to={"signin"}
                   className="p-2 lg:px-4 md:mx-2 text-indigo-600 text-center border border-transparent rounded hover:bg-indigo-100 hover:text-indigo-700 transition-colors duration-300"
                 >
                   Đăng nhập
-                </a>
+                </Link>
+                <Link
+                  to={"signup"}
+                  className="p-2 lg:px-4 md:mx-2 text-indigo-600 text-center border border-transparent rounded hover:bg-indigo-100 hover:text-indigo-700 transition-colors duration-300"
+                >
+                  Đăng ký
+                </Link>
                 <Link
                   to={"admin"}
                   className="p-2 lg:px-4 md:mx-2 text-indigo-600 text-center border border-transparent rounded hover:bg-indigo-100 hover:text-indigo-700 transition-colors duration-300"
                 >
                   Admin
                 </Link>
+                {localStorage.getItem("users") ? (
+                  <Link
+                    to={"admin"}
+                    className="p-2 lg:px-4 md:mx-2 text-indigo-600 text-center border border-transparent rounded hover:bg-indigo-100 hover:text-indigo-700 transition-colors duration-300"
+                  >
+                    Xin chào {a.email}
+                  </Link>
+                ) : (
+                  ""
+                )}
               </div>
             </div>
           </nav>

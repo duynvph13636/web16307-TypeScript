@@ -8,7 +8,6 @@ import { add, list, remove, update } from "./api/products";
 import { Navigate, NavLink, Route, Routes } from "react-router-dom";
 import WebsiteLayout from "./page/layouts/WebsiteLayout";
 import Hom from "./page/Hom";
-import Products from "./page/Products";
 import AdminLayout from "./page/layouts/AdminLayout";
 import Dashboard from "./page/Dashboard";
 import ManagerProduct from "./page/ManagerProduct";
@@ -24,9 +23,12 @@ import CategoryAdd from "./page/admin/CategoryAdd";
 import { CategoryType } from "./types/category";
 import { addCate, listCate, removeCate } from "./api/category";
 import ListCategory from "./page/admin/ListCategory";
+import CategoryDetail from "./page/CategoryDetail";
+import Cart from "./page/client/cart";
 function App() {
   const [products, setProduct] = useState<ProductType[]>([]);
 const [categories,setCategory]=useState<CategoryType[]>([]);
+const [cartItem,setCartItem] = useState([]);
   useEffect(() => {
     const getProducts = async () => {
       const { data } = await list();
@@ -85,10 +87,14 @@ const [categories,setCategory]=useState<CategoryType[]>([]);
         <Route path='product' element={<h1>product page</h1>}/> */}
         <Route path="/" element={<WebsiteLayout />}>
           <Route index element={<ManagerProduct data={products}/>} />
-          <Route path="product" element={<Products />} />
+          <Route
+            path="categorydetail"
+            element={<CategoryDetail cate={categories} data={products}/>}
+          />
           <Route path="signup" element={<Singup />} />
           <Route path="signin" element={<Singin />} />
           <Route path="product/:id/detail" element={<ProductDetail />} />
+          <Route path="cart" element={< Cart/>} cartItem={cartItem}/>
         </Route>
         <Route path="admin" element={<AdminLayout />}>
           <Route index element={<Dashboard />} />
@@ -106,6 +112,7 @@ const [categories,setCategory]=useState<CategoryType[]>([]);
             path="category"
             element={<ListCategory cate={categories} onRemovecate={removeItemCate}/>}
           />
+          
           <Route
             path="product/:id/edit"
             element={<ProductUpdate onUpdate={onHandleUpdate} />}

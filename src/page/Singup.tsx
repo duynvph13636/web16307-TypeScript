@@ -17,12 +17,6 @@ const Singup = () => {
   } = useForm<FormInput>();
 
   const onsubmit: SubmitHandler<FormInput> = async (data) => {
-    // const onHandleSignup = async (signup: UserType) => {
-    //   const { data } = await Add(signup);
-    //   console.log(data);
-    //   // localStorage.setItem("users",JSON.stringify(data));
-    // };
-    // onHandleSignup(data);
     await Add(data);
   };
 
@@ -32,6 +26,11 @@ const Singup = () => {
         <div className="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
           <div className="bg-white px-6 py-8 rounded shadow-md text-black w-full">
             <h1 className="mb-8 text-3xl text-center">Sign up</h1>
+            <input
+              type="text"
+              className="block border border-grey-light w-full p-3 rounded mb-4"
+              placeholder="name"
+            {...register("name")} />
             <input
               type="text"
               className="block border border-grey-light w-full p-3 rounded mb-4"
@@ -62,15 +61,6 @@ const Singup = () => {
         </div>
       </div>
     </form>
-
-    // <div>
-    //   <form action="" onSubmit={handleSubmit(onsubmit)}>
-    //     <input type="text" placeholder="Name" {...register("name")} />
-    //     <input type="text" placeholder="Email" {...register("email")} />
-    //     <input type="password" placeholder="password" {...register("password")} />
-    //     <button>SIGN UP</button>
-    //   </form>
-    // </div>
   );
 };
 

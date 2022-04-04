@@ -46,10 +46,9 @@ const ProductAdd = (props: ProductAddProps) => {
       });
       data.image = images.data.url;
     }
-
     console.log(data);
     props.onAdd(data);
-    // navigate("/admin/product");
+    navigate("/admin/product");
   };
 
   return (

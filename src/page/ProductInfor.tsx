@@ -7,48 +7,15 @@ const ProductInfor = ({product}) => {
       <div className="w-full h-64 md:w-1/2 lg:h-96">
         <img
           className="h-full w-full rounded-md object-cover max-w-lg mx-auto"
-          src="https://picsum.photos/350/350"
+          src={product.image}
           alt="Nike Air"
         />
       </div>
       <div className="w-full max-w-lg mx-auto mt-5 md:ml-8 md:mt-0 md:w-1/2">
         <h3 className="text-gray-700 uppercase text-lg">{product.name}</h3>
-        <span className="text-black mt-3">{product.price}</span>
+        <span className="text-black mt-3">{product.price.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}</span>
         <hr className="my-3" />
-        <div className="mt-2">
-          <label className="text-gray-700 text-sm" htmlFor="count">
-            Count:
-          </label>
-          <div className="flex items-center mt-1">
-            <button className="text-gray-500 focus:outline-none focus:text-gray-600">
-              <svg
-                className="h-5 w-5"
-                fill="none"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </button>
-            <span className="text-gray-700 text-lg mx-2">50</span>
-            <button className="text-gray-500 focus:outline-none focus:text-gray-600">
-              <svg
-                className="h-5 w-5"
-                fill="none"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </button>
-          </div>
-        </div>
+       
         <div className="flex items-center mt-6">
           <button className="px-8 py-2 bg-indigo-600 text-white text-sm font-medium rounded hover:bg-indigo-500 focus:outline-none focus:bg-indigo-500">
             Order Now
