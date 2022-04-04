@@ -3,10 +3,12 @@ import { CartType } from '../../types/cartType'
 import { ProductType } from '../../types/product'
 
 type CartProps = {
- 
+ carts:ProductType[]
 }
 
 const Cart = (props: CartProps) => {
+console.log(props);
+// const cartLoco =JSON.parse(localStorage.getItem("cartitem")) ;
 
   return (
     <div>
@@ -36,9 +38,7 @@ const Cart = (props: CartProps) => {
         <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-6">
           <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
             <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-              ${'{'}cart.map((post) =&gt; `
-              <p hidden>  ${'{'} thanhtien+=tong{'}'}</p>                                    
-              `).join(""){'}'}
+            
               <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-gray-50">
                   <tr>
@@ -62,11 +62,12 @@ const Cart = (props: CartProps) => {
                     </th>
                   </tr>
                 </thead>
+                
                 <tbody className="bg-white divide-y divide-gray-200"><tr>
                     <td className="px-6 py-4">
                       <div className="flex items-center">
                         <div className="flex-shrink-0 h-10 w-10">
-                          <img className="h-10 w-10 rounded-full" src="${post.image}" alt />
+                          <img className="h-10 w-10 rounded-full" src="${post.image}" />
                         </div>
                         <div className="ml-4">
                           <div className="text-sm font-medium text-gray-900">

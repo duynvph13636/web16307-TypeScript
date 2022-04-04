@@ -27,17 +27,17 @@ import CategoryDetail from "./page/CategoryDetail";
 import Cart from "./page/client/cart";
 function App() {
   const [products, setProduct] = useState<ProductType[]>([]);
-const [categories,setCategory]=useState<CategoryType[]>([]);
-const [cartItem,setCartItem] = useState([]);
+  const [categories, setCategory] = useState<CategoryType[]>([]);
+  const [cartItems, setCartItems] = useState<ProductType[]>([]);
   useEffect(() => {
     const getProducts = async () => {
       const { data } = await list();
-    
+
       setProduct(data);
     };
     const getCategory = async () => {
       const { data } = await listCate();
-    
+
       setCategory(data);
     };
     getCategory();
@@ -62,57 +62,77 @@ const [cartItem,setCartItem] = useState([]);
     console.log(product);
     setProduct(products.map((item) => (item._id == data.id ? data : item)));
   };
-  const AddCate = async(category:CategoryType)=>{
-     const {data} =    await addCate(category);
-        setCategory([...categories,data]);
-        
-  }
-  const removeItemCate = async(id:number)=>{
-      const {data}= await removeCate(id);
-      if (data) {
-        setCategory(categories.filter((item) => item._id !== id));
-      }
-  }
-  const onHandleSignup = async (signup: UserType) => {
-    const { data } = await Add(signup);
-
-    console.log(signup);
+  const AddCate = async (category: CategoryType) => {
+    const { data } = await addCate(category);
+    setCategory([...categories, data]);
   };
+  const removeItemCate = async (id: number) => {
+    const { data } = await removeCate(id);
+    if (data) {
+      setCategory(categories.filter((item) => item._id !== id));
+    }
+  };
+  const addtocart = (cartItem: ProductType) => {
+    console.log(cartItem);
+    const exist = cartItems.find((item) => item._id=== cartItem._id);
+    if (exist) {
+      setCartItems(
+        cartItems.map((x) =>
+          x._id == cartItem._id ? { ...exist, qty: exist.qty + 1 } : x
+        )
+      );
+    }else{
+      setCartItems([...cartItems,{...cartItem,qty:1}])
+    }
+  localStorage.setItem("cartitem",JSON.stringify(cartItems))
+  console.log(cartItems);
+  
+  };
+
+
   return (
     <div className="App">
-   
-
       <Routes>
         {/* <Route path='/' element={<h1>hom page</h1>}/>
         <Route path='product' element={<h1>product page</h1>}/> */}
         <Route path="/" element={<WebsiteLayout />}>
-          <Route index element={<ManagerProduct data={products}/>} />
+          <Route
+            index
+            element={
+              <ManagerProduct data={products} onHandleAddToCart={addtocart} cart={cartItems} />
+            }
+          />
           <Route
             path="categorydetail"
-            element={<CategoryDetail cate={categories} data={products}/>}
+            element={<CategoryDetail cate={categories} data={products} />}
           />
           <Route path="signup" element={<Singup />} />
           <Route path="signin" element={<Singin />} />
           <Route path="product/:id/detail" element={<ProductDetail />} />
-          <Route path="cart" element={< Cart/>} cartItem={cartItem}/>
+          <Route path="cart" element={<Cart carts={cartItems}/>}  />
         </Route>
         <Route path="admin" element={<AdminLayout />}>
           <Route index element={<Dashboard />} />
           {/* <Route path="dashboard" element={<Dashboard />} /> */}
-          <Route path="product" element={<ListProduct data={products} onRemove={removeItem} />} />
+          <Route
+            path="product"
+            element={<ListProduct data={products} onRemove={removeItem} />}
+          />
           <Route
             path="product/add"
-            element={<ProductAdd onAdd={onHandleAdd} category={categories}/>}
+            element={<ProductAdd onAdd={onHandleAdd} category={categories} />}
           />
           <Route
             path="category/add"
-            element={<CategoryAdd onCate={AddCate}/>}
+            element={<CategoryAdd onCate={AddCate} />}
           />
           <Route
             path="category"
-            element={<ListCategory cate={categories} onRemovecate={removeItemCate}/>}
+            element={
+              <ListCategory cate={categories} onRemovecate={removeItemCate} />
+            }
           />
-          
+
           <Route
             path="product/:id/edit"
             element={<ProductUpdate onUpdate={onHandleUpdate} />}

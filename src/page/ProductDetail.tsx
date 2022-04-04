@@ -3,8 +3,9 @@ import { listProductDetail, read } from "../api/products";
 import { ProductType } from "../types/product";
 import { useParams } from "react-router-dom";
 import ProductInfor from "./ProductInfor";
+import { CartType } from "../types/cartType";
 type ProductDetailProps = {
-
+ 
 };
 
 const ProductDetail = (props: ProductDetailProps) => {
@@ -21,6 +22,7 @@ const ProductDetail = (props: ProductDetailProps) => {
   return (
   <div>
       {product && <ProductInfor product={product}/> }
+     
   </div>
 
   );
