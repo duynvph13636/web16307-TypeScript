@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { ProductType } from "../types/product";
 
 type Props = {
-  data :ProductType[]
+  
 };
 
 const HeaderWebsite = (props: Props) => {
@@ -81,9 +81,11 @@ const HeaderWebsite = (props: Props) => {
               </div>
             </div>
           </nav>
+          
           <div className="mt-2 w-full m-auto">
             <img className="w-full" src="https://picsum.photos/3000/700" />
           </div>
+         
         </div>
       </header>
     </div>

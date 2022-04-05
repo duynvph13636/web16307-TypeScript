@@ -107,6 +107,10 @@ const onclickcateProduct =async (id:number)=>{
 console.log(data);
 setProduct(data.product);
 }
+const handlefillterChange =(newFilters:ProductType)=>{
+  console.log("newFillter",newFilters);
+  // setProduct({...products,name:newFilters.fillter});
+}
   return (
     <div className="App">
       <Routes>
@@ -116,7 +120,7 @@ setProduct(data.product);
           <Route
             index
             element={
-              <ManagerProduct data={products} onHandleAddToCart={addtocart} cart={cartItems} />
+              <ManagerProduct data={products} onHandleAddToCart={addtocart} cart={cartItems} onsubmit={handlefillterChange}/>
             }
           />
           <Route

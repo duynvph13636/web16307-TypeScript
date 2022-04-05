@@ -1,24 +1,56 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { ProductType } from "../types/product";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { CartType } from "../types/cartType";
 type ManagerProductProps = {
   data: ProductType[];
-  cart :ProductType[];
+  cart: ProductType[];
   onHandleAddToCart: (cartItem: ProductType) => void;
+  onsubmit: (search: ProductType) => void;
 };
 
 const ManagerProduct = (props: ManagerProductProps) => {
-  console.log(props);
+  
+  const [fillter, setfillter] = useState("");
+  const typingTimeoutRef = useRef(null);
 
+  const handleSearch = (e) => { 
+    const value = e.target.value;
+    setfillter(value);
+    if (!props.onsubmit) return;
+    if(typingTimeoutRef.current){
+      clearTimeout(typingTimeoutRef.current);
+    }
+    typingTimeoutRef.current = setTimeout(() => {
+      const formValues = {
+        fillter: value,
+      };
+      props.onsubmit(formValues);
+    }, 3000);
+  };
+let dataSearch = props.data.filter(item=>{
+  return Object.keys(item).some(key=>item[key].toString().toLowerCase().includes(fillter.toString().toLowerCase()))
+})
   return (
     <section>
+      <div className="mt-2 m-auto ">
+        <input
+          className="border-solid border-2 border-indigo-600 mb-5 ml-5 mt-5"
+          type="text"
+          placeholder="tìm kiếm ..."
+          onChange={handleSearch}
+          value={fillter}
+        />
+        <button className="bg-indigo-600 border-solid ml-2 text-white">
+          Tìm kiếm
+        </button>
+      </div>
       <h1 className="text-center font-bold text-4xl pt-10">Sản phẩm</h1>
       <div className="bg-white">
         <div className="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
           <div className="grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
-            {props.data.map((item) => {
+            {dataSearch.map((item) => {
               return (
                 <div className="group">
                   <Link to={`product/${item._id}/detail`}>
