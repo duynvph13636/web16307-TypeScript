@@ -29,9 +29,9 @@ const ManagerProduct = (props: ManagerProductProps) => {
       props.onsubmit(formValues);
     }, 3000);
   };
-let dataSearch = props.data.filter(item=>{
-  return Object.keys(item).some(key=>item[key].toString().toLowerCase().includes(fillter.toString().toLowerCase()))
-})
+// let dataSearch = props.data.filter(item=>{
+//   return Object.keys(item).some(key=>item[key].toString().toLowerCase().includes(fillter.toString().toLowerCase()))
+// })
   return (
     <section>
       <div className="mt-2 m-auto ">
@@ -50,7 +50,13 @@ let dataSearch = props.data.filter(item=>{
       <div className="bg-white">
         <div className="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
           <div className="grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
-            {dataSearch.map((item) => {
+            {props.data.filter((val)=>{
+              if(fillter==""){
+                return val;
+              }else if(val.name.toLocaleLowerCase().includes(fillter.toLowerCase())){
+                return val;
+              }
+            }).map((item) => {
               return (
                 <div className="group">
                   <Link to={`product/${item._id}/detail`}>
