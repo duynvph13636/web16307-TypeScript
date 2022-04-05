@@ -43,12 +43,12 @@ const HeaderWebsite = (props: Props) => {
                 >
                   Giỏ hàng
                 </Link>
-                <a
-                  href="#"
+                <Link
+                  to={"products"}
                   className="p-2 lg:px-4 md:mx-2 text-gray-600 rounded hover:bg-gray-200 hover:text-gray-700 transition-colors duration-300"
                 >
                   Sản phẩm
-                </a>
+                </Link>
 
                 <Link
                   to={"signin"}

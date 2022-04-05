@@ -21,14 +21,16 @@ import ListProduct from "./page/admin/ListProduct";
 import ProductDetail from "./page/ProductDetail";
 import CategoryAdd from "./page/admin/CategoryAdd";
 import { CategoryType } from "./types/category";
-import { addCate, listCate, removeCate } from "./api/category";
+import { addCate, listCate, listCateProduct, removeCate } from "./api/category";
 import ListCategory from "./page/admin/ListCategory";
 import CategoryDetail from "./page/CategoryDetail";
 import Cart from "./page/client/cart";
+import Products from "./page/client/Products";
 function App() {
   const [products, setProduct] = useState<ProductType[]>([]);
   const [categories, setCategory] = useState<CategoryType[]>([]);
   const [cartItems, setCartItems] = useState<ProductType[]>([]);
+  const [user,setuser] = useState([]);
   useEffect(() => {
     const getProducts = async () => {
       const { data } = await list();
@@ -100,7 +102,11 @@ const removeCart= (cartItem:ProductType)=>{
     );
   }
 }
-
+const onclickcateProduct =async (id:number)=>{
+ const {data}= await listCateProduct(id);
+console.log(data);
+setProduct(data.product);
+}
   return (
     <div className="App">
       <Routes>
@@ -121,6 +127,7 @@ const removeCart= (cartItem:ProductType)=>{
           <Route path="signin" element={<Singin />} />
           <Route path="product/:id/detail" element={<ProductDetail />} />
           <Route path="cart" element={<Cart carts={cartItems} onaddcart={addtocart} onremovecart={removeCart}/>}  />
+          <Route path="products" element={<Products cate={categories} products={products} onclickProduct={onclickcateProduct}/>}  />
         </Route>
         <Route path="admin" element={<AdminLayout />}>
           <Route index element={<Dashboard />} />

@@ -9,6 +9,7 @@ type ProductUpdateProps = {
 type FormInput = {
   name: string;
   price: number;
+  image:string;
 };
 const ProductUpdate = (props: ProductUpdateProps) => {
   const { id } = useParams();

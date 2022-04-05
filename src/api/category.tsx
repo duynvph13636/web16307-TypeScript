@@ -9,6 +9,10 @@ export const listCate =()=>{
     const url = "/categories";
     return instance.get(url)
 }
+export const listCateProduct =(id:number)=>{
+    const url = "/categories/"+id;
+    return instance.get(url)
+}
 export const removeCate =(id:number)=>{
     const url = "/categories/"+id;
     return instance.delete(url)
