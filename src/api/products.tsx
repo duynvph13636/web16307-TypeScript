@@ -26,3 +26,11 @@ export const listProductDetail = (_id:number)=>{
     const url =`/products/${_id}`;
     return instance.get(url);
 }
+export const listProductPriceDesc = ()=>{
+    const url =`/sort/dec`;
+    return instance.get(url);
+}
+export const listProductPriceAsc = ()=>{
+    const url =`/sort`;
+    return instance.get(url);
+}

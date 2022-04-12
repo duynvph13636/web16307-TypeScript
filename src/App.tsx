@@ -4,7 +4,7 @@ import axios from "axios";
 import logo from "./logo.svg";
 import "./App.css";
 import type { ProductType } from "./types/product";
-import { add, list, remove, update } from "./api/products";
+import { add, list, listProductPriceAsc, listProductPriceDesc, remove, update } from "./api/products";
 import { Navigate, NavLink, Route, Routes } from "react-router-dom";
 import WebsiteLayout from "./page/layouts/WebsiteLayout";
 import Hom from "./page/Hom";
@@ -111,6 +111,18 @@ const handlefillterChange =(newFilters:ProductType)=>{
   console.log("newFillter",newFilters);
   // setProduct({...products,name:newFilters.fillter});
 }
+const onclickPriceAsc = async()=>{
+const {data} = await listProductPriceAsc();
+console.log(data);
+setProduct(data);
+  // setProduct({...products,name:newFilters.fillter});
+}
+const onclickPriceDesc = async()=>{
+const {data} = await listProductPriceDesc();
+console.log(data);
+setProduct(data);
+  // setProduct({...products,name:newFilters.fillter});
+}
   return (
     <div className="App">
       <Routes>
@@ -131,7 +143,7 @@ const handlefillterChange =(newFilters:ProductType)=>{
           <Route path="signin" element={<Singin />} />
           <Route path="product/:id/detail" element={<ProductDetail />} />
           <Route path="cart" element={<Cart carts={cartItems} onaddcart={addtocart} onremovecart={removeCart}/>}  />
-          <Route path="products" element={<Products cate={categories} products={products} onclickProduct={onclickcateProduct}/>}  />
+          <Route path="products" element={<Products cate={categories} products={products} onclickProduct={onclickcateProduct} onPriceAsc={onclickPriceAsc} onPriceDesc={onclickPriceDesc}/>}  />
         </Route>
         <Route path="admin" element={<AdminLayout />}>
           <Route index element={<Dashboard />} />

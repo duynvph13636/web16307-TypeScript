@@ -7,9 +7,13 @@ type ProductsProps = {
     cate:CategoryType[];
     products :ProductType[];
     onclickProduct:(id:string)=>void;
+    onPriceDesc:()=>void;
+    onPriceAsc:()=>void;
+
 }
 
 const Products = (props: ProductsProps) => {
+   console.log(props.products);
    
     
   return (
@@ -37,6 +41,10 @@ const Products = (props: ProductsProps) => {
           </li>
             })}
         </ul>
+        <ul role="list" className="text-sm font-medium text-gray-900 space-y-4 pb-6 border-b border-gray-200">
+           <li >  <button onClick={()=>{props.onPriceDesc()}}>Cao đến thấp</button> </li>
+           <li > <button onClick={()=>{props.onPriceAsc()}}>Thấp đến cao</button></li>
+        </ul>
       </div>
       {/* Product grid */}
       <div className="lg:col-span-3">
@@ -46,6 +54,7 @@ const Products = (props: ProductsProps) => {
             <div className="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
               <div className="grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
                   {props.products.map(item=>{
+                  
                       return  <Link to="#" className="group">
                   <div className="w-full aspect-w-1 aspect-h-1 bg-gray-200 rounded-lg overflow-hidden xl:aspect-w-7 xl:aspect-h-8">
                     <img src={item.image} alt="Tall slender porcelain bottle with natural clay textured body and cork stopper." className="w-full h-48 object-center object-cover group-hover:opacity-75" />
@@ -56,6 +65,7 @@ const Products = (props: ProductsProps) => {
                   <p className="mt-1 text-lg font-medium text-gray-900">
                    {item.price}
                   </p>
+                  
                 </Link>
                   })}
                
