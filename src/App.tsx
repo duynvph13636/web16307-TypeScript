@@ -62,7 +62,7 @@ function App() {
   const onHandleUpdate = async (product: ProductType) => {
     const { data } = await update(product);
     console.log(product);
-    setProduct(products.map((item) => (item._id == data.id ? data : item)));
+    setProduct(products.map((item) => (item._id == data._id ? data : item)));
   };
   const AddCate = async (category: CategoryType) => {
     const { data } = await addCate(category);

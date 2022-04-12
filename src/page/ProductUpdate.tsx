@@ -33,9 +33,12 @@ const ProductUpdate = (props: ProductUpdateProps) => {
     getProduct();
   }, []);
  const onSubmit: SubmitHandler<FormInput> = (data:any) => {
-   console.log(data);
-props.onUpdate(data);
+    console.log(data);
+    props.onUpdate(data);
     navigate("/admin/product");
+
+  
+   
   };
   return (
     <div>
