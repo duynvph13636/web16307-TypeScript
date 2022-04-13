@@ -3,7 +3,7 @@ import { UserType } from "../types/user";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import { signin } from "../api/user";
-
+import {authenticate} from "../utils/localStorage";
 type Props = {};
 type FormInput = {
   email: String;
@@ -18,12 +18,10 @@ const Singin = (props: Props) => {
   } = useForm<FormInput>();
   const navigate = useNavigate();
   const onSubmit: SubmitHandler<FormInput> = async (data) => {
-    await signin(data);
-    localStorage.setItem("users", JSON.stringify(data));
-    setTimeout(() => {
-      navigate("/");
-    }, 2000);
-    
+   const {data:user}= await signin(data);
+    // localStorage.setItem("users", JSON.stringify(data));
+    authenticate(user,()=>navigate("/"));
+   window.location.reload();
     console.log(data);
   };
 

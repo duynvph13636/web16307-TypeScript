@@ -2,16 +2,18 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ProductType } from "../types/product";
 import {useNavigate} from "react-router-dom"
+import { isAuthenticate } from "../utils/localStorage";
+const {user} = isAuthenticate();
 type Props = {
   
 };
 
 const HeaderWebsite = (props: Props) => {
 const navigate = useNavigate();
- const a =JSON.parse( localStorage.getItem("users"));
+//  const a =JSON.parse( localStorage.getItem("users"));
 const logout= ()=>{
   localStorage.removeItem("users");
-navigate("/")
+  window.location.reload();
 }
 
   return (
@@ -55,13 +57,13 @@ navigate("/")
                 </Link>
 
                
-                {localStorage.getItem("users") ?
+                {user ?
                 <div>
                     <Link
                     to={"admin"}
                     className="p-2 lg:px-4 md:mx-2 text-indigo-600 text-center border border-transparent rounded hover:bg-indigo-100 hover:text-indigo-700 transition-colors duration-300"
                   >
-                    Xin chào {a.email}
+                    Xin chào {user.email}
                   </Link>
                   <Link to={"/"} onClick={()=>{logout()}}>logout</Link>
                 </div>
